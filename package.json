@@ -18,5 +18,9 @@
   "homepage": "https://github.com/sekyungk/react-typescript-template#readme",
   "devDependencies": {
     "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }

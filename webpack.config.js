@@ -1,34 +1,35 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const mode = process.env.NODE_ENV || "development";
+const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
   entry: {
-    main: "./src/index.tsx",
+    main: './src/index.tsx',
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "babel-loader",
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist"),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     overlay: true,
-    stats: "errors-only",
+    stats: 'errors-only',
     hot: true,
   },
   plugins: [
@@ -36,18 +37,18 @@ module.exports = {
       banner: `Build date: ${new Date().toLocaleString()}`,
     }),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
       templateParameters: {
-        env: mode === "development" ? "(development)" : "",
+        env: mode === 'development' ? '(development)' : '',
       },
       minify:
-        mode === "production"
+        mode === 'production'
           ? {
               collapseWhitespace: true,
               removeComments: true,
             }
           : false,
-      hash: mode === "production",
+      hash: mode === 'production',
     }),
     new CleanWebpackPlugin(),
   ],

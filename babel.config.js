@@ -1,15 +1,15 @@
 const presets = [
   [
-    "@babel/preset-env",
+    '@babel/preset-env',
     {
-      useBuiltIns: "usage",
+      useBuiltIns: 'usage',
       corejs: {
         version: 3,
       },
     },
   ],
-  "@babel/preset-react",
-  "@babel/preset-typescript",
+  '@babel/preset-react',
+  '@babel/preset-typescript',
 ];
 const plugins = [];
 

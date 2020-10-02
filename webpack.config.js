@@ -26,6 +26,11 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
   },
+  devServer: {
+    overlay: true,
+    stats: "errors-only",
+    hot: true,
+  },
   plugins: [
     new webpack.BannerPlugin({
       banner: `Build date: ${new Date().toLocaleString()}`,

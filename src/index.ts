@@ -1,1 +1,6 @@
-console.log("Hello World!");
+const test = () => {
+  const a = new Promise((resolve, reject) => {
+    resolve("test");
+  });
+  console.log("success");
+};

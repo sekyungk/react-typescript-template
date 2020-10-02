@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sekyungk/react-typescript-template/issues"
   },
-  "homepage": "https://github.com/sekyungk/react-typescript-template#readme"
+  "homepage": "https://github.com/sekyungk/react-typescript-template#readme",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  }
 }

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { ThemeProvider } from 'styled-components';
 
 import { theme } from './styles/theme';
@@ -14,4 +15,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default hot(App);

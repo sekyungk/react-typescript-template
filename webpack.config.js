@@ -5,6 +5,7 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const envPath = path.resolve(fs.realpathSync(process.cwd()), '.env');
@@ -70,4 +71,18 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
   ],
+  optimization: {
+    minimizer:
+      NODE_ENV === 'production'
+        ? [
+            new TerserPlugin({
+              terserOptions: {
+                compress: {
+                  drop_console: true,
+                },
+              },
+            }),
+          ]
+        : [],
+  },
 };

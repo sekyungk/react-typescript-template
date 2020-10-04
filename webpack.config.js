@@ -1,13 +1,27 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const mode = process.env.NODE_ENV || 'development';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const envPath = path.resolve(fs.realpathSync(process.cwd()), '.env');
+const dotenvFiles = [
+  `${envPath}`,
+  `${envPath}.${NODE_ENV}`,
+  `${envPath}.${NODE_ENV}.local`,
+];
+let result;
+dotenvFiles.forEach((dotenvFile) => {
+  if (fs.existsSync(dotenvFile)) {
+    result = dotenv.config({ path: dotenvFile });
+  }
+});
 
 module.exports = {
-  mode,
+  mode: NODE_ENV,
   entry: {
     main: './src/index.tsx',
   },
@@ -32,23 +46,27 @@ module.exports = {
     stats: 'errors-only',
     hot: true,
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.BannerPlugin({
       banner: `Build date: ${new Date().toLocaleString()}`,
     }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(result.parsed),
+    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       templateParameters: {
-        env: mode === 'development' ? '(development)' : '',
+        env: NODE_ENV === 'development' ? '(development)' : '',
       },
       minify:
-        mode === 'production'
+        NODE_ENV === 'production'
           ? {
               collapseWhitespace: true,
               removeComments: true,
             }
           : false,
-      hash: mode === 'production',
+      hash: NODE_ENV === 'production',
     }),
     new CleanWebpackPlugin(),
   ],
